@@ -6,8 +6,8 @@ import os
 app = Flask(__name__)
 
 # Environment variables for credentials (set in Vercel)
-USERNAME = os.getenv('USERNAME', 'admin')
-PASSWORD = os.getenv('PASSWORD', 'securepassword123')
+USERNAME = "admin"
+PASSWORD = "securepassword123"
 
 def authenticate(f):
     @wraps(f)
