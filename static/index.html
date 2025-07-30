@@ -3,14 +3,310 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Secure Door Lock</title>
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="styles.css">
+    <title>Secure Door Lock System</title>
+    <style>
+        /* === FULL CSS === */
+        :root {
+            --primary: #4361ee;
+            --primary-dark: #3a0ca3;
+            --primary-light: #4895ef;
+            --secondary: #4cc9f0;
+            --danger: #f72585;
+            --dark: #1b263b;
+            --dark-light: #415a77;
+            --light: #f8f9fa;
+            --gray: #adb5bd;
+            --success: #4ade80;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background: linear-gradient(135deg, var(--dark), var(--dark-light));
+            color: var(--light);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            line-height: 1.6;
+        }
+
+        .container {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 40px;
+            width: 100%;
+            max-width: 500px;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+            text-align: center;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            animation: fadeIn 0.5s ease-out;
+        }
+
+        h1 {
+            margin-bottom: 30px;
+            font-weight: 600;
+            color: var(--light);
+            font-size: 2rem;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .logo {
+            width: 80px;
+            height: 80px;
+            margin: 0 auto 20px;
+            background: var(--primary-light);
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 2rem;
+            font-weight: bold;
+            color: white;
+            box-shadow: 0 5px 15px rgba(72, 149, 239, 0.4);
+            transition: transform 0.3s ease;
+        }
+
+        .logo:hover {
+            transform: scale(1.05);
+        }
+
+        .input-group {
+            margin-bottom: 20px;
+            text-align: left;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+            color: var(--light);
+            opacity: 0.9;
+        }
+
+        input {
+            width: 100%;
+            padding: 12px 15px;
+            border-radius: 8px;
+            border: none;
+            background: rgba(255, 255, 255, 0.1);
+            color: var(--light);
+            font-size: 1rem;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        input:focus {
+            outline: none;
+            border-color: var(--primary-light);
+            background: rgba(255, 255, 255, 0.2);
+            box-shadow: 0 0 0 3px rgba(72, 149, 239, 0.2);
+        }
+
+        input::placeholder {
+            color: var(--gray);
+            opacity: 0.7;
+        }
+
+        button {
+            background: var(--primary);
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            width: 100%;
+            margin-top: 10px;
+        }
+
+        button:hover {
+            background: var(--primary-dark);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(67, 97, 238, 0.4);
+        }
+
+        button:active {
+            transform: translateY(0);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            border: 1px solid var(--primary-light);
+            color: var(--primary-light);
+        }
+
+        .btn-secondary:hover {
+            background: rgba(72, 149, 239, 0.1);
+            color: var(--light);
+        }
+
+        .copy-btn {
+            position: absolute;
+            right: 10px;
+            top: 10px;
+            background: var(--primary-light);
+            border: none;
+            border-radius: 5px;
+            padding: 5px 10px;
+            color: white;
+            cursor: pointer;
+            font-size: 0.8rem;
+            width: auto;
+            margin: 0;
+            transition: all 0.3s ease;
+        }
+
+        .copy-btn:hover {
+            background: var(--primary);
+        }
+
+        .password-display {
+            display: none;
+            margin-bottom: 30px;
+            animation: fadeIn 0.5s ease;
+        }
+
+        .password-display.active {
+            display: block;
+        }
+
+        .password-box {
+            background: rgba(0, 0, 0, 0.2);
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            font-size: 1.5rem;
+            word-break: break-all;
+            position: relative;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        .password-box:hover {
+            border-color: var(--primary-light);
+        }
+
+        .auth-form {
+            display: none;
+            margin-bottom: 30px;
+            animation: fadeIn 0.5s ease;
+        }
+
+        .auth-form.active {
+            display: block;
+        }
+
+        .loading {
+            display: none;
+            margin: 20px 0;
+        }
+
+        .loading.active {
+            display: block;
+        }
+
+        .spinner {
+            width: 40px;
+            height: 40px;
+            margin: 0 auto;
+            border: 4px solid rgba(255, 255, 255, 0.1);
+            border-top: 4px solid var(--primary-light);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        .error-message {
+            color: var(--danger);
+            margin-top: 10px;
+            font-size: 0.9rem;
+            min-height: 20px;
+            animation: shake 0.5s ease;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes spin {
+            0% {
+                transform: rotate(0deg);
+            }
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+
+        @keyframes shake {
+            0%, 100% {
+                transform: translateX(0);
+            }
+            20%, 60% {
+                transform: translateX(-5px);
+            }
+            40%, 80% {
+                transform: translateX(5px);
+            }
+        }
+
+        @media (max-width: 600px) {
+            .container {
+                padding: 30px 20px;
+                border-radius: 15px;
+            }
+
+            h1 {
+                font-size: 1.5rem;
+            }
+
+            .logo {
+                width: 60px;
+                height: 60px;
+                font-size: 1.5rem;
+            }
+
+            input, button {
+                padding: 10px 12px;
+            }
+
+            .password-box {
+                font-size: 1.2rem;
+                padding: 15px;
+            }
+        }
+
+        @media (max-width: 400px) {
+            body {
+                padding: 10px;
+            }
+
+            .container {
+                padding: 20px 15px;
+            }
+        }
+    </style>
 </head>
 <body>
     <div class="container">
         <div class="logo">🔒</div>
-        <h1>Secure Door Lock</h1>
+        <h1>Secure Door Lock System</h1>
         
         <!-- Auth Form -->
         <div class="auth-form active" id="authForm">
@@ -40,6 +336,98 @@
             <div class="spinner"></div>
         </div>
     </div>
-    <script src="script.js"></script>
+
+    <script>
+        // === FULL JAVASCRIPT ===
+        document.addEventListener('DOMContentLoaded', () => {
+            // DOM Elements
+            const authForm = document.getElementById('authForm');
+            const passwordDisplay = document.getElementById('passwordDisplay');
+            const loginBtn = document.getElementById('loginBtn');
+            const generateBtn = document.getElementById('generateBtn');
+            const logoutBtn = document.getElementById('logoutBtn');
+            const copyBtn = document.getElementById('copyBtn');
+            const loading = document.getElementById('loading');
+            const authError = document.getElementById('authError');
+            const generatedPassword = document.getElementById('generatedPassword');
+
+            // Check existing session
+            if (localStorage.getItem('authenticated')) {
+                authForm.classList.remove('active');
+                passwordDisplay.classList.add('active');
+            }
+
+            // Login handler
+            loginBtn.addEventListener('click', async () => {
+                const username = document.getElementById('username').value;
+                const password = document.getElementById('password').value;
+
+                if (!username || !password) {
+                    showError('Please enter both fields');
+                    return;
+                }
+
+                loading.classList.add('active');
+                
+                try {
+                    const response = await fetch('/generate', {
+                        headers: {
+                            'Authorization': 'Basic ' + btoa(`${username}:${password}`)
+                        }
+                    });
+                    
+                    if (!response.ok) throw new Error('Auth failed');
+                    
+                    localStorage.setItem('authenticated', 'true');
+                    authForm.classList.remove('active');
+                    passwordDisplay.classList.add('active');
+                    await generatePassword();
+                } catch (error) {
+                    showError('Invalid credentials');
+                } finally {
+                    loading.classList.remove('active');
+                }
+            });
+
+            // Password generation
+            async function generatePassword() {
+                loading.classList.add('active');
+                try {
+                    const response = await fetch('/generate', {
+                        headers: {
+                            'Authorization': 'Basic ' + btoa(
+                                `${document.getElementById('username').value}:${document.getElementById('password').value}`
+                            )
+                        }
+                    });
+                    const data = await response.json();
+                    generatedPassword.textContent = data.password;
+                } catch (error) {
+                    showError('Failed to generate password');
+                } finally {
+                    loading.classList.remove('active');
+                }
+            }
+
+            // UI Helpers
+            function showError(message) {
+                authError.textContent = message;
+                setTimeout(() => authError.textContent = '', 3000);
+            }
+
+            // Event listeners
+            generateBtn.addEventListener('click', generatePassword);
+            logoutBtn.addEventListener('click', () => {
+                localStorage.removeItem('authenticated');
+                passwordDisplay.classList.remove('active');
+                authForm.classList.add('active');
+            });
+            copyBtn.addEventListener('click', () => {
+                navigator.clipboard.writeText(generatedPassword.textContent);
+                copyBtn.textContent = 'Copied!';
+                setTimeout(() => copyBtn.textContent = 'Copy', 2000);
+            });
+        });
+    </script>
 </body>
-  </html>
+    </html>
