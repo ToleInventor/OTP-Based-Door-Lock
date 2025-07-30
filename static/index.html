@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Secure Door Lock</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <div class="logo">🔒</div>
+        <h1>Secure Door Lock</h1>
+        
+        <!-- Auth Form -->
+        <div class="auth-form active" id="authForm">
+            <div class="input-group">
+                <label for="username">Username</label>
+                <input type="text" id="username" placeholder="admin">
+            </div>
+            <div class="input-group">
+                <label for="password">Password</label>
+                <input type="password" id="password" placeholder="••••••••">
+            </div>
+            <button id="loginBtn">Authenticate</button>
+            <div class="error-message" id="authError"></div>
+        </div>
+        
+        <!-- Password Generator -->
+        <div class="password-display" id="passwordDisplay">
+            <div class="password-box">
+                <span id="generatedPassword"></span>
+                <button class="copy-btn" id="copyBtn">Copy</button>
+            </div>
+            <button id="generateBtn">Generate New Password</button>
+            <button class="btn-secondary" id="logoutBtn">Logout</button>
+        </div>
+        
+        <div class="loading" id="loading">
+            <div class="spinner"></div>
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+  </html>
